@@ -1,45 +1,42 @@
 #!/usr/bin/python3
-"""Prime game involving two players"""
+"""0. Prime Game - Maria and Ben are playing a game"""
 
 
 def isWinner(x, nums):
-    """Returns the winner of Prime game
-       Args:
-          x: rounds of the game
-          nums: array of n
-       Return: the winner
+    """x - rounds
+    nums - numbers list
     """
-    Maria = 0
-    Ben = 0
-
     if x <= 0 or nums is None:
         return None
     if x != len(nums):
         return None
 
-    al = [1 for x in range(sorted(nums)[-1] + 1)]
-    al[0], al[1] = 0, 0
-    for i in range(2, len(al)):
-        remove_multiples(al, i)
+    ben = 0
+    maria = 0
 
-    for n in nums:
-        if sum(al[0:i + 1]) % 2 != 0:
-            Maria += 1
+    a = [1 for x in range(sorted(nums)[-1] + 1)]
+    a[0], a[1] = 0, 0
+    for i in range(2, len(a)):
+        rm_multiples(a, i)
+
+    for i in nums:
+        if sum(a[0:i + 1]) % 2 == 0:
+            ben += 1
         else:
-            Ben += 1
-
-    if Maria > Ben:
-        return "Maria"
-    elif Ben > Maria:
+            maria += 1
+    if ben > maria:
         return "Ben"
-    else:
-        return None
+    if maria > ben:
+        return "Maria"
+    return None
 
 
-def remove_multiples(lst, x):
-    """Removes multiple primes"""
-    for i in range(2, len(lst)):
+def rm_multiples(ls, x):
+    """removes multiple
+    of primes
+    """
+    for i in range(2, len(ls)):
         try:
-            lst[1 * x] = 0
-        except (IndexError, ValueError):
+            ls[i * x] = 0
+        except (ValueError, IndexError):
             break
